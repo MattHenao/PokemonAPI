@@ -16,7 +16,6 @@ public class Pokemon implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
 	private Integer idPokedex;
 	private String name;
 	private String type;

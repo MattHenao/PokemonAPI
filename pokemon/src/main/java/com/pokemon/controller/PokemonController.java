@@ -1,7 +1,8 @@
 package com.pokemon.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,14 +23,11 @@ public class PokemonController {
 	
 	@PostMapping()
 	public Pokemon savePokemon(@RequestBody Pokemon pokemon){
-		System.out.println("Heyyyyyyyyyyyyy");
 		return pokemonService.save(pokemon);
 	}
 	
-	@GetMapping()
-	public ResponseEntity<String> getPokemon(){
-		return ResponseEntity.ok("Hola");
+	@GetMapping("/pokenon")
+	public List<Pokemon> getPokemon() {
+		return pokemonService.findAll();
 	}
-	
-	
 }

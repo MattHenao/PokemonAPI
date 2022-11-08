@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pokemon.dao.PokemonDao;
+import com.pokemon.exception.PokemonNotFoundException;
 import com.pokemon.model.Pokemon;
 
 @Service
@@ -34,6 +35,9 @@ public class PokemonServiceImp implements PokemonService{
 	@Override
 	@Transactional(readOnly = true)
 	public Pokemon findById(Integer id) {
+		if(pokemonDao.findById(id).isEmpty())
+			throw new PokemonNotFoundException("Requested Pokemon does not exist");
+
 		return pokemonDao.findById(id).orElse(null);
 	}
 }

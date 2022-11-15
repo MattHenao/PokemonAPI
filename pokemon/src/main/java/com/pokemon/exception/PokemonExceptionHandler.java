@@ -17,4 +17,14 @@ public class PokemonExceptionHandler {
 		
 		return new ResponseEntity<>(pokemonException, HttpStatus.NOT_FOUND);
 	}
+
+	@ExceptionHandler(value = {PokemonBadRequestException.class})
+	public ResponseEntity<Object> handlePokemonBadRequestException(PokemonBadRequestException pokemonBadRequestException){
+		PokemonException pokemonException = new PokemonException(
+		pokemonBadRequestException.getMessage(),
+		pokemonBadRequestException.getCause(),
+		HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<>(pokemonException, HttpStatus.BAD_REQUEST);
+	}
 }

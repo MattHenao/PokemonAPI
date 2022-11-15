@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pokemon.dao.PokemonDao;
+import com.pokemon.exception.PokemonBadRequestException;
 import com.pokemon.exception.PokemonNotFoundException;
 import com.pokemon.model.Pokemon;
 
@@ -17,8 +18,9 @@ public class PokemonServiceImp implements PokemonService{
 	@Override
 	@Transactional(readOnly = false)
 	public Pokemon save(Pokemon pokemon) {
-		if(pokemon.getIdPokedex() == null)
-			throw new PokemonNotFoundException("Nope");
+		if(pokemon.getIdPokedex() == null || pokemon.getName() == null
+			|| pokemon.getAttack() == null || pokemon.getType() == null)
+			throw new PokemonBadRequestException("Mandatory parameters not entered");
 			
 		return pokemonDao.save(pokemon);
 	}
@@ -27,7 +29,7 @@ public class PokemonServiceImp implements PokemonService{
 	@Transactional(readOnly = true)
 	public List<Pokemon> findAll(){
 		if(((List<Pokemon>) pokemonDao.findAll()).isEmpty())
-			throw new PokemonNotFoundException("There is no Pokemon object");
+			throw new PokemonNotFoundException("There is no Pokemon objects");
 		return (List<Pokemon>) pokemonDao.findAll();
 	}
 
